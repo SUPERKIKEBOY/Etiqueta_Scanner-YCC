@@ -20,16 +20,11 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-- name: Set up Android SDK
-  uses: android-actions/setup-android@v3
-  with:
-    accept-android-sdk-licenses: false
-
-- name: Accept Android SDK Licenses
-  run: |
-    yes | sdkmanager --licenses || true
-
-    
+      - name: Configure Android SDK
+        run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+          ls "$ANDROID_HOME/cmdline-tools"
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -38,9 +33,9 @@ jobs:
         run: |
           if [ -f gradlew ]; then
             chmod +x gradlew
-            ./gradlew assembleDebug
+            ./gradlew assembleDebug --stacktrace
           else
-            gradle assembleDebug
+            gradle assembleDebug --stacktrace
           fi
 
       - name: Upload APK
@@ -48,3 +43,4 @@ jobs:
         with:
           name: Etiqueta-Scanner-V1
           path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
