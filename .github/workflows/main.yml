@@ -10,6 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./QMR1300_Offline_NYX-main
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -20,7 +24,7 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Configure Android SDK
+      - name: Verify Android SDK
         run: |
           echo "ANDROID_HOME=$ANDROID_HOME"
           echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
@@ -28,6 +32,13 @@ jobs:
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
+
+      - name: Verify Project
+        run: |
+          echo "Project files:"
+          ls -la
+          echo "Gradle files:"
+          find . -maxdepth 2 -name "*.gradle*"
 
       - name: Build Debug APK
         run: |
@@ -42,5 +53,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Etiqueta-Scanner-V1
-          path: app/build/outputs/apk/debug/*.apk
+          path: QMR1300_Offline_NYX-main/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
