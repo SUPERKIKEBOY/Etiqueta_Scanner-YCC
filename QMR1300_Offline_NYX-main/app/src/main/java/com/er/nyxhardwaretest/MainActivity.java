@@ -1,7 +1,7 @@
 package com.er.nyxhardwaretest;
 
 import android.Manifest;
-import android.app.Activity;
+import androidx.activity.ComponentActivity;
 import android.content.ContentValues;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -41,7 +41,7 @@ import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ComponentActivity {
     private PreviewView preview;
     private TextView status, fields, count;
     private final Handler main = new Handler(Looper.getMainLooper());
