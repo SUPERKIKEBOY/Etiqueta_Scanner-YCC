@@ -1,1 +1,6 @@
+name: Build Etiqueta Scanner APK
 
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
